@@ -1,0 +1,8 @@
+Bienvenido/a a Ensalada de Letras!
+El juego consiste en desordenar las letras de una palabra y luego adivinarla.
+Se te mostraran 5 palabras y deberas adivinarlas todas correctamente para ganar.
+Si adivinas una palabra correctamente obtendras 1 punto.
+Si adivinas una palabra incorrectamente no obtendras puntos.
+Al final del juego se te mostrara tu puntaje.
+Buena suerte!
+
