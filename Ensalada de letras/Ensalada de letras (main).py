@@ -5,9 +5,10 @@ from pathlib import Path
 import os
 import sys
 
+BASE_DIR = Path(__file__).resolve().parent #constante de la ruta principal
 
 def reglas() ->None:
-    dir_reglas=Path("Resources") / ("reglas_ensalada_de_letras.txt")
+    dir_reglas=BASE_DIR / ("Resources") / ("reglas_ensalada_de_letras.txt")
     try:
         with open (dir_reglas,"r") as reglas:
             print(reglas.read())
@@ -22,7 +23,7 @@ def menu() ->None:
        4. salir\n""")
 
 def Imprimir_Puntaje() ->None:
-    dir_puntaje=Path("Resources") / ("puntaje.json")
+    dir_puntaje=BASE_DIR / ("Resources") / ("puntaje.json")
     try:
         with open (dir_puntaje,"rt") as archivo:
             data=json.load(archivo)
@@ -47,7 +48,7 @@ def Imprimir_Puntaje() ->None:
 
 def Guardar (user:str,acertadas:int) ->None:
     puntaje=acertadas*200
-    dir_puntaje=Path("Resources") / ("puntaje.json")
+    dir_puntaje=BASE_DIR / ("Resources") / ("puntaje.json")
     try:
         with open (dir_puntaje,"rt") as archivo:        #intento abrir el archivo
             data=json.load(archivo)
@@ -63,7 +64,7 @@ def Guardar (user:str,acertadas:int) ->None:
         with open (dir_puntaje,"wt") as archivo:   #abro archivo y agrego la informacion al .json
             json.dump(data,archivo)
             
-def Jugar() ->None:
+def Jugar(palabras) ->None:
     acertadas=0
     while (True):
         print("""Elige categoria:
@@ -92,26 +93,32 @@ def Jugar() ->None:
         else:
             print("Opcion invalida")
 
-palabras=Path("Resources") / ("palabras.json")
-with open (palabras,"r") as archivo: #leo el json con las palabras
-    palabras=json.load(archivo)
-    archivo.close
-
-
-
-menu()
-opcion=input()
-while (True):
-    if (opcion=="1"):
-        Jugar()
-    elif (opcion=="2"):
-        Imprimir_Puntaje()
-    elif (opcion=="3"):
-        reglas()
-    elif (opcion=="4"):
-        print("Adios")
-        break
+def inicio (palabras):
     menu()
     opcion=input()
+    while (True):
+        if (opcion=="1"):
+            Jugar(palabras)
+        elif (opcion=="2"):
+            Imprimir_Puntaje()
+        elif (opcion=="3"):
+            reglas()
+        elif (opcion=="4"):
+            print("Adios")
+            break
+        menu()
+        opcion=input()
+
+dir_palabras=BASE_DIR / ("Resources") / ("palabras.json")
+try:
+    with open (dir_palabras,"r") as archivo: #leo el json con las palabras
+        palabras=json.load(archivo)
+        inicio(palabras)
+except Exception as e:
+    print ("No se pudo abrir el json de las palabras.")
+    print(f"Error {e}")
+
+
+
 
 
