@@ -1,2 +1,2 @@
 # Proyectos
-Proyectos realizados en facultas y otros medios
+Proyectos realizados en facultad y otros medios
